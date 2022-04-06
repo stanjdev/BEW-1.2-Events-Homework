@@ -5,30 +5,27 @@
 
 <form method="POST">
     <p>
-        <label>
-            Event Title:
-            <input type="text" name="title">
-        </label>
+        {{ form.title.label }} <br>
+        {{ form.title(class="title-input") }}
     </p>
     <p>
-        <label>
-            Event Description: <br>
-            <textarea name="description"></textarea>
-        </label>
+        {{ form.description.label }} <br>
+        {{ form.description(class="description-input") }}
     </p>
     {% if error %}
-        <p class="error">Error: {{ error }}</p>
+    <p class="error">Error: {{ error }}</p>
     {% endif %}
     <p>
-        
-        <label>
-            Date and Time: <br>
-            <input type="date" name="date" placeholder="Date format YYYY-mm-dd">
-            <input type="time" name="time" placeholder="Time format HH:MM">
-        </label>
+        {{ form.date.label }} 
+        <br>
+        {{ form.date(type="date") }} <!-- set the type to "date" -->
+        <br>
+        {{ form.time.label }} 
+        <br>
+        {{ form.time(type="time") }}
     </p>
     <p>
-        <input type="submit" name="submit" value="Add">
+    {{ form.submit }}
     </p>
 </form>
 

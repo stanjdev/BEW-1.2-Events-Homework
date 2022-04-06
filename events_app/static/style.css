@@ -28,3 +28,11 @@ body {
     color: red;
     font-weight: bold;
 }
+
+.title-input {
+    font-size: 20px;
+}
+
+.description-input {
+    font-size: 20px;
+}

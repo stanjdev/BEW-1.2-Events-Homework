@@ -3,11 +3,23 @@ import os
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from datetime import date, datetime
 from events_app.models import Event, Guest
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.fields import DateField, TimeField
+from wtforms.widgets import TextArea, DateTimeInput # get TextArea from widgets!
+from wtforms.validators import DataRequired
 
 # Import app and db from events_app package so that we can run app
 from events_app import app, db
 
 main = Blueprint('main', __name__)
+
+class CreateEventForm(FlaskForm):
+    title = StringField("Event Title:", validators=[DataRequired()])
+    description = StringField("Event Description:", widget=TextArea(), validators=[DataRequired()])
+    date = DateField("Date", format="%Y-%m-%d", widget=DateTimeInput(), validators=[DataRequired()])
+    time = TimeField("Time", widget=DateTimeInput(), validators=[DataRequired()])
+    submit = SubmitField("Submit")
 
 
 ##########################################
@@ -25,6 +37,9 @@ def index():
 
 @main.route('/create', methods=['GET', 'POST'])
 def create():
+
+    form = CreateEventForm()
+
     """Create a new event."""
     if request.method == 'POST':
         new_event_title = request.form.get('title')
@@ -53,7 +68,7 @@ def create():
         flash('Event created.')
         return redirect(url_for('main.index'))
     else:
-        return render_template('create.html')
+        return render_template('create.html', form=form)
 
 
 @main.route('/event/<event_id>', methods=['GET'])
