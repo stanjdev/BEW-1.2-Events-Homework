@@ -18,7 +18,7 @@ class CreateEventForm(FlaskForm):
     title = StringField("Event Title:", validators=[DataRequired()])
     description = StringField("Event Description:", widget=TextArea(), validators=[DataRequired()])
     date = DateField("Date", format="%Y-%m-%d", widget=DateTimeInput(), validators=[DataRequired()])
-    time = TimeField("Time", widget=DateTimeInput(), validators=[DataRequired()])
+    time = TimeField("Time", format="%h-%m", widget=DateTimeInput(), validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
